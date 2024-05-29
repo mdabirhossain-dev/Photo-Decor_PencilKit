@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    // MARK: - Properties
+    @StateObject var drawingVM = DrawingViewModel()
+    
     var body: some View {
         NavigationView {
-            Text("Photo Picker")
-                .navigationTitle("Photo Decor")
+            VStack {
+                
+            }
+            .navigationTitle("Photo Decor")
         }
     }
 }
