@@ -39,6 +39,9 @@ struct DrawingView: View {
                     // Creating one new box...
                     drawingVM.textBoxes.append(TextBox())
                     
+                    // Updating index...
+                    drawingVM.currentIndex = drawingVM.textBoxes.count - 1
+                    
                     withAnimation {
                         drawingVM.addNewBox.toggle()
                     }

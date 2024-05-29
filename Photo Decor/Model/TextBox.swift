@@ -16,7 +16,7 @@ struct TextBox: Identifiable {
     // For dragging view over the screen...
     var offset: CGSize = .zero
     var lastOffset: CGSize = .zero
-    var textColor: Color = .black
+    var textColor: Color = .white
     
     // Any property can be added........
 }

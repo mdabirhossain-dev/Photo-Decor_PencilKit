@@ -40,5 +40,8 @@ class DrawingViewModel: ObservableObject {
         withAnimation {
             addNewBox = false
         }
+        
+        // Removing if cancelled
+        textBoxes.removeLast()
     }
 }

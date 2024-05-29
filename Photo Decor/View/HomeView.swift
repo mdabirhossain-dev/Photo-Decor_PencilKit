@@ -57,34 +57,47 @@ struct HomeView: View {
                 Color.black.opacity(0.7)
                     .ignoresSafeArea()
                 
-                // TextField
-                TextField("Add text..", text: $drawingVM.textBoxes[drawingVM.currentIndex].text)
-                    .font(.system(size: 28))
-                    .preferredColorScheme(.dark)
-                
-                // Add and cancel button
-                HStack {
-                    Button {
-                        drawingVM.cancelTextView()
-                    } label: {
-                        Text("Cancel")
-                            .fontWeight(.heavy)
-                            .foregroundColor(.white)
-                            .padding()
-                    }
+                VStack(alignment: .center) {
+                    // TextField
+                    TextField("Add text..", text: $drawingVM.textBoxes[drawingVM.currentIndex].text)
+                        .font(.system(size: 28))
+                        .foregroundColor(drawingVM.textBoxes[drawingVM.currentIndex].textColor)
+                        .preferredColorScheme(.dark)
                     
-                    Spacer()
-                    
-                    Button {
+                    // Add and cancel button
+                    HStack {
+                        Button {
+                            drawingVM.cancelTextView()
+                        } label: {
+                            Text("Cancel")
+                                .fontWeight(.heavy)
+                                .foregroundColor(.white)
+                                .padding()
+                        }
                         
-                    } label: {
-                        Text("Add")
-                            .fontWeight(.heavy)
-                            .foregroundColor(.white)
-                            .padding()
+                        Spacer()
+                        
+                        Button {
+                            
+                        } label: {
+                            Text("Add")
+                                .fontWeight(.heavy)
+                                .foregroundColor(.white)
+                                .padding()
+                        }
                     }
+                    .overlay(
+                        ColorPicker("", selection: $drawingVM.textBoxes[drawingVM.currentIndex].textColor)
+                            .labelsHidden()
+                        , alignment: .center
+                    )
                 }
-                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(20)
+                .frame(height: 150, alignment: .top)
+                .background(Color.gray)
+                .cornerRadius(15)
+                .padding()
+                
             }
         }
         // Showing ImagePicker in a sheet
