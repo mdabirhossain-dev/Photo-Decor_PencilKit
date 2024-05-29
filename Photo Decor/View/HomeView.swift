@@ -12,43 +12,79 @@ struct HomeView: View {
     @StateObject var drawingVM = DrawingViewModel()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                if let image = UIImage(data: drawingVM.imageData) {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+        ZStack {
+            NavigationView {
+                VStack {
+                    if let _ = UIImage(data: drawingVM.imageData) {
+                        DrawingView()
+                            .environmentObject(drawingVM)
+                            .toolbar {
+                                ToolbarItem(placement: .navigationBarTrailing) {
+                                    if let _ = UIImage(data: drawingVM.imageData) {
+                                        HStack {
+                                            Button("Cancel") {
+                                                drawingVM.cancelPhotoEditing()
+                                            }
+                                            .buttonBorderShape(.capsule)
+                                            .buttonStyle(.bordered)
+                                            
+                                            Button("+") {
+                                                drawingVM.showPicker.toggle()
+                                            }
+                                            .buttonBorderShape(.capsule)
+                                            .buttonStyle(.borderedProminent)
+                                        }
+                                    } else {
+                                        EmptyView()
+                                    }
+                                }
+                            }
+                        
+                        Spacer()
+                    } else {
+                        Button("+") {
+                            drawingVM.showPicker.toggle()
+                        }
+                        .buttonBorderShape(.capsule)
+                        .buttonStyle(.borderedProminent)
+                    }
+                }
+                .navigationTitle("Photo Decor")
+            }
+            
+            if drawingVM.addNewBox {
+                
+                Color.black.opacity(0.7)
+                    .ignoresSafeArea()
+                
+                // TextField
+                TextField("Add text..", text: $drawingVM.textBoxes[drawingVM.currentIndex].text)
+                    .font(.system(size: 28))
+                    .preferredColorScheme(.dark)
+                
+                // Add and cancel button
+                HStack {
+                    Button {
+                        drawingVM.cancelTextView()
+                    } label: {
+                        Text("Cancel")
+                            .fontWeight(.heavy)
+                            .foregroundColor(.white)
+                            .padding()
+                    }
                     
                     Spacer()
-                } else {
-                    Button("+") {
-                        drawingVM.showPicker.toggle()
-                    }
-                    .buttonBorderShape(.capsule)
-                    .buttonStyle(.borderedProminent)
-                }
-            }
-            .navigationTitle("Photo Decor")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if let image = UIImage(data: drawingVM.imageData) {
-                        HStack {
-                            Button("Cancel") {
-                                drawingVM.cancelPhotoEditing()
-                            }
-                            .buttonBorderShape(.capsule)
-                            .buttonStyle(.bordered)
-                            
-                            Button("+") {
-                                drawingVM.showPicker.toggle()
-                            }
-                            .buttonBorderShape(.capsule)
-                            .buttonStyle(.borderedProminent)
-                        }
-                    } else {
-                        EmptyView()
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("Add")
+                            .fontWeight(.heavy)
+                            .foregroundColor(.white)
+                            .padding()
                     }
                 }
+                .frame(maxHeight: .infinity, alignment: .top)
             }
         }
         // Showing ImagePicker in a sheet

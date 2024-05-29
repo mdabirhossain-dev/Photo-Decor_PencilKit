@@ -14,6 +14,8 @@
 		10A82AFA2C06F54A00938906 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A82AF92C06F54A00938906 /* HomeView.swift */; };
 		10A82AFC2C06F5D800938906 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A82AFB2C06F5D800938906 /* ImagePicker.swift */; };
 		10A82AFE2C06FA0600938906 /* DrawingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A82AFD2C06FA0600938906 /* DrawingViewModel.swift */; };
+		10A82B002C0705FB00938906 /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A82AFF2C0705FB00938906 /* DrawingView.swift */; };
+		10A82B022C073CEB00938906 /* TextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A82B012C073CEB00938906 /* TextBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		10A82AF92C06F54A00938906 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		10A82AFB2C06F5D800938906 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		10A82AFD2C06FA0600938906 /* DrawingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewModel.swift; sourceTree = "<group>"; };
+		10A82AFF2C0705FB00938906 /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
+		10A82B012C073CEB00938906 /* TextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 			children = (
 				10A82AF92C06F54A00938906 /* HomeView.swift */,
 				10A82AFB2C06F5D800938906 /* ImagePicker.swift */,
+				10A82AFF2C0705FB00938906 /* DrawingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -90,6 +95,7 @@
 		10A82AF72C06F4EA00938906 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				10A82B012C073CEB00938906 /* TextBox.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,7 +181,9 @@
 				10A82AFA2C06F54A00938906 /* HomeView.swift in Sources */,
 				10A82AFC2C06F5D800938906 /* ImagePicker.swift in Sources */,
 				10A82AFE2C06FA0600938906 /* DrawingViewModel.swift in Sources */,
+				10A82B002C0705FB00938906 /* DrawingView.swift in Sources */,
 				10A82AEA2C06F33D00938906 /* ContentView.swift in Sources */,
+				10A82B022C073CEB00938906 /* TextBox.swift in Sources */,
 				10A82AE82C06F33D00938906 /* Photo_DecorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
