@@ -11,6 +11,8 @@
 		10A82AEA2C06F33D00938906 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A82AE92C06F33D00938906 /* ContentView.swift */; };
 		10A82AEC2C06F33E00938906 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10A82AEB2C06F33E00938906 /* Assets.xcassets */; };
 		10A82AF02C06F33E00938906 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10A82AEF2C06F33E00938906 /* Preview Assets.xcassets */; };
+		10A82AFA2C06F54A00938906 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A82AF92C06F54A00938906 /* HomeView.swift */; };
+		10A82AFC2C06F5D800938906 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A82AFB2C06F5D800938906 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		10A82AEB2C06F33E00938906 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10A82AED2C06F33E00938906 /* Photo_Decor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Photo_Decor.entitlements; sourceTree = "<group>"; };
 		10A82AEF2C06F33E00938906 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		10A82AF92C06F54A00938906 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		10A82AFB2C06F5D800938906 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +56,9 @@
 		10A82AE62C06F33D00938906 /* Photo Decor */ = {
 			isa = PBXGroup;
 			children = (
+				10A82AF82C06F4FE00938906 /* ViewModel */,
+				10A82AF72C06F4EA00938906 /* Model */,
+				10A82AF62C06F4C100938906 /* View */,
 				10A82AE72C06F33D00938906 /* Photo_DecorApp.swift */,
 				10A82AE92C06F33D00938906 /* ContentView.swift */,
 				10A82AEB2C06F33E00938906 /* Assets.xcassets */,
@@ -67,6 +74,29 @@
 				10A82AEF2C06F33E00938906 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		10A82AF62C06F4C100938906 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				10A82AF92C06F54A00938906 /* HomeView.swift */,
+				10A82AFB2C06F5D800938906 /* ImagePicker.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		10A82AF72C06F4EA00938906 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		10A82AF82C06F4FE00938906 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +169,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10A82AFA2C06F54A00938906 /* HomeView.swift in Sources */,
+				10A82AFC2C06F5D800938906 /* ImagePicker.swift in Sources */,
 				10A82AEA2C06F33D00938906 /* ContentView.swift in Sources */,
 				10A82AE82C06F33D00938906 /* Photo_DecorApp.swift in Sources */,
 			);
