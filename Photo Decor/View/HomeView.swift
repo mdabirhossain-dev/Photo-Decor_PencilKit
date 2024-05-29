@@ -78,7 +78,10 @@ struct HomeView: View {
                         Spacer()
                         
                         Button {
-                            
+                            // Closing the view
+                            withAnimation {
+                                drawingVM.addNewBox = false
+                            }
                         } label: {
                             Text("Add")
                                 .fontWeight(.heavy)

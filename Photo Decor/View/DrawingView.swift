@@ -23,6 +23,14 @@ struct DrawingView: View {
                         CanvasView(canvas: $drawingVM.canvas, imageData: $drawingVM.imageData, toolPicker: $drawingVM.toolPicker, rect: size)
                         
                         // Custom texts...
+                        // Displaying added text's...
+                        ForEach(drawingVM.textBoxes) { text in
+                            Text(drawingVM.textBoxes[drawingVM.currentIndex].id == text.id && drawingVM.addNewBox ? "" : text.text)
+                                .font(.system(size: 28))
+                                .fontWeight(text.isBold ? .bold : .none)
+                                .foregroundColor(text.textColor)
+                                .offset(text.offset)
+                        }
                     }
                 )
             }
