@@ -11,5 +11,8 @@ class DrawingViewModel: ObservableObject {
     @Published var showPicker = false
     @Published var imageData = Data(count: 0)
     
-    
+    // Cancel image editing...
+    func cancelPhotoEditing() {
+        imageData = Data(count: 0)
+    }
 }
