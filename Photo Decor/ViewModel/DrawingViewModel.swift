@@ -44,4 +44,8 @@ class DrawingViewModel: ObservableObject {
         // Removing if cancelled
         textBoxes.removeLast()
     }
+    
+    func saveImage() {
+        
+    }
 }

@@ -24,12 +24,29 @@ struct DrawingView: View {
                         
                         // Custom texts...
                         // Displaying added text's...
-                        ForEach(drawingVM.textBoxes) { text in
-                            Text(drawingVM.textBoxes[drawingVM.currentIndex].id == text.id && drawingVM.addNewBox ? "" : text.text)
+                        ForEach(drawingVM.textBoxes) { box in
+                            Text(drawingVM.textBoxes[drawingVM.currentIndex].id == box.id && drawingVM.addNewBox ? "" : box.text)
                                 .font(.system(size: 28))
-                                .fontWeight(text.isBold ? .bold : .none)
-                                .foregroundColor(text.textColor)
-                                .offset(text.offset)
+                                .fontWeight(box.isBold ? .bold : .none)
+                                .foregroundColor(box.textColor)
+                                .offset(box.offset)
+                            // Drag gesture
+                                .gesture(
+                                    DragGesture()
+                                        .onChanged({ (value) in
+                                            let current = value.translation
+                                            
+                                            // Adding with last offset
+                                            let lastOffset = box.lastOffset
+                                            let newTranslation = CGSize(width: lastOffset.width + current.width, height: lastOffset.height + current.height)
+                                            
+                                            drawingVM.textBoxes[getIndex(textBox: box)].offset = newTranslation
+                                        })
+                                        .onEnded({ (value) in
+                                            // Saving last value for exac position...
+                                            drawingVM.textBoxes[getIndex(textBox: box)].lastOffset = value.translation
+                                        })
+                                )
                         }
                     }
                 )
@@ -59,6 +76,14 @@ struct DrawingView: View {
                 }
             }
         }
+    }
+    
+    func getIndex(textBox: TextBox) -> Int {
+        let index = drawingVM.textBoxes.firstIndex { (box) in
+            return textBox.id == box.id
+        } ?? 0
+        
+        return index
     }
 }
 

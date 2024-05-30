@@ -79,6 +79,9 @@ struct HomeView: View {
                         
                         Button {
                             // Closing the view
+                            drawingVM.toolPicker.setVisible(true, forFirstResponder: drawingVM.canvas)
+                            drawingVM.canvas.becomeFirstResponder()
+                            
                             withAnimation {
                                 drawingVM.addNewBox = false
                             }
