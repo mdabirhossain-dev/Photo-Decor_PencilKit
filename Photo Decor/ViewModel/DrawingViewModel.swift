@@ -55,6 +55,25 @@ class DrawingViewModel: ObservableObject {
         // Canvas
         canvas.drawHierarchy(in: CGRect(origin: .zero, size: rect.size), afterScreenUpdates: true)
         
+        // Drawing Textboxes...
+        let SwiftUIView = ZStack {
+            ForEach(textBoxes) { [self] box in
+                Text(textBoxes[currentIndex].id == box.id && addNewBox ? "" : box.text)
+                    .font(.system(size: 28))
+                    .fontWeight(box.isBold ? .bold : .none)
+                    .foregroundColor(box.textColor)
+                    .offset(box.offset)
+            }
+        }
+        
+        let controller = UIHostingController(rootView: SwiftUIView).view
+        controller?.frame = rect
+        // Clearing background...
+        controller?.backgroundColor = .clear
+        canvas.backgroundColor = .clear
+        
+        controller?.drawHierarchy(in: CGRect(origin: .zero, size: rect.size), afterScreenUpdates: true)
+        
         // Getting image...
         let generatedImage = UIGraphicsGetImageFromCurrentImageContext()
         

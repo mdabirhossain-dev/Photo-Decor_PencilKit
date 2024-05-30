@@ -58,11 +58,21 @@ struct HomeView: View {
                     .ignoresSafeArea()
                 
                 VStack(alignment: .center) {
-                    // TextField
-                    TextField("Add text..", text: $drawingVM.textBoxes[drawingVM.currentIndex].text)
-                        .font(.system(size: 28))
-                        .foregroundColor(drawingVM.textBoxes[drawingVM.currentIndex].textColor)
-                        .preferredColorScheme(.dark)
+                    HStack {
+                        // TextField
+                        TextField("Add text..", text: $drawingVM.textBoxes[drawingVM.currentIndex].text)
+                            .font(.system(size: 28))
+                            .foregroundColor(drawingVM.textBoxes[drawingVM.currentIndex].textColor)
+                            .preferredColorScheme(.dark)
+                        
+                        Button {
+                            drawingVM.textBoxes[drawingVM.currentIndex].isBold.toggle()
+                        } label: {
+                            Text(drawingVM.textBoxes[drawingVM.currentIndex].isBold ? "Normal" : "Bold")
+                                .fontWeight(drawingVM.textBoxes[drawingVM.currentIndex].isBold ? .none : .bold)
+                                .foregroundColor(.white)
+                        }
+                    }
                     
                     // Add and cancel button
                     HStack {
