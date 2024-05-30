@@ -54,7 +54,7 @@ struct DrawingView: View {
                                         }))
                             
                             // Editing added texts on long press...
-                                .onLongPressGesture {
+                                .onLongPressGesture(minimumDuration: 1.5) {
                                     // Closing the toolBar...
                                     drawingVM.toolPicker.setVisible(false, forFirstResponder: drawingVM.canvas)
                                     drawingVM.canvas.resignFirstResponder()
