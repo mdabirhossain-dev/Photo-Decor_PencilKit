@@ -17,6 +17,12 @@ struct DrawingView: View {
             GeometryReader { geo -> AnyView in
                 let size = geo.frame(in: .global).size
                 
+                DispatchQueue.main.async {
+                    if drawingVM.rect == .zero {
+                        drawingVM.rect = geo.frame(in: .global)
+                    }
+                }
+                
                 return AnyView(
                     ZStack {
                         // PencilKit drawing (UIKit)
@@ -55,7 +61,7 @@ struct DrawingView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    
+                    drawingVM.saveImage()
                 }
             }
             

@@ -25,6 +25,9 @@ class DrawingViewModel: ObservableObject {
     // Current index
     @Published var currentIndex: Int = 0
     
+    // View frame size
+    @Published var rect: CGRect = .zero
+    
     // Cancel image editing...
     func cancelPhotoEditing() {
         imageData = Data(count: 0)
@@ -46,6 +49,22 @@ class DrawingViewModel: ObservableObject {
     }
     
     func saveImage() {
+        // Generating image from canvas and textBoxes view...
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 1)
         
+        // Canvas
+        canvas.drawHierarchy(in: CGRect(origin: .zero, size: rect.size), afterScreenUpdates: true)
+        
+        // Getting image...
+        let generatedImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // End Render...
+        UIGraphicsEndImageContext()
+        
+        if let image = generatedImage {
+            // Saving image...
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            print("Image succesfully saved...")
+        }
     }
 }
