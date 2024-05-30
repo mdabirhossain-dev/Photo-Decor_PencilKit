@@ -28,10 +28,15 @@ class DrawingViewModel: ObservableObject {
     // View frame size
     @Published var rect: CGRect = .zero
     
+    // Alert
+    @Published var showAlert = false
+    @Published var alertMsg = ""
+    
     // Cancel image editing...
     func cancelPhotoEditing() {
         imageData = Data(count: 0)
         canvas = PKCanvasView()
+        textBoxes.removeAll()
     }
     
     // Cancel AddTextView {
@@ -45,12 +50,15 @@ class DrawingViewModel: ObservableObject {
         }
         
         // Removing if cancelled
-        textBoxes.removeLast()
+        // Avoiding already added texts removal...
+        if !textBoxes[currentIndex].isAdded {
+            textBoxes.removeLast()
+        }
     }
     
     func saveImage() {
         // Generating image from canvas and textBoxes view...
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 1)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
         
         // Canvas
         canvas.drawHierarchy(in: CGRect(origin: .zero, size: rect.size), afterScreenUpdates: true)
@@ -80,10 +88,14 @@ class DrawingViewModel: ObservableObject {
         // End Render...
         UIGraphicsEndImageContext()
         
-        if let image = generatedImage {
+        if let image = generatedImage?.pngData() {
             // Saving image...
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            UIImageWriteToSavedPhotosAlbum(UIImage(data: image)!, nil, nil, nil)
             print("Image succesfully saved...")
+            
+            // Triggering alert...
+            alertMsg = "Image successfully saved.."
+            showAlert.toggle()
         }
     }
 }

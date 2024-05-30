@@ -15,18 +15,18 @@ struct DrawingView: View {
     var body: some View {
         ZStack {
             GeometryReader { geo -> AnyView in
-                let size = geo.frame(in: .global).size
+                let size = geo.frame(in: .global)
                 
                 DispatchQueue.main.async {
                     if drawingVM.rect == .zero {
-                        drawingVM.rect = geo.frame(in: .global)
+                        drawingVM.rect = size
                     }
                 }
                 
                 return AnyView(
                     ZStack {
                         // PencilKit drawing (UIKit)
-                        CanvasView(canvas: $drawingVM.canvas, imageData: $drawingVM.imageData, toolPicker: $drawingVM.toolPicker, rect: size)
+                        CanvasView(canvas: $drawingVM.canvas, imageData: $drawingVM.imageData, toolPicker: $drawingVM.toolPicker, rect: size.size)
                         
                         // Custom texts...
                         // Displaying added text's...
@@ -51,8 +51,19 @@ struct DrawingView: View {
                                         .onEnded({ (value) in
                                             // Saving last value for exac position...
                                             drawingVM.textBoxes[getIndex(textBox: box)].lastOffset = value.translation
-                                        })
-                                )
+                                        }))
+                            
+                            // Editing added texts on long press...
+                                .onLongPressGesture {
+                                    // Closing the toolBar...
+                                    drawingVM.toolPicker.setVisible(false, forFirstResponder: drawingVM.canvas)
+                                    drawingVM.canvas.resignFirstResponder()
+                                    
+                                    drawingVM.currentIndex = getIndex(textBox: box)
+                                    withAnimation {
+                                        drawingVM.addNewBox = true
+                                    }
+                                }
                         }
                     }
                 )

@@ -61,7 +61,7 @@ struct HomeView: View {
                     HStack {
                         // TextField
                         TextField("Add text..", text: $drawingVM.textBoxes[drawingVM.currentIndex].text)
-                            .font(.system(size: 28))
+                            .font(.system(size: 28, weight: drawingVM.textBoxes[drawingVM.currentIndex].isBold ? .bold : .regular))
                             .foregroundColor(drawingVM.textBoxes[drawingVM.currentIndex].textColor)
                             .preferredColorScheme(.dark)
                         
@@ -88,6 +88,9 @@ struct HomeView: View {
                         Spacer()
                         
                         Button {
+                            // Toggle isAdded
+                            drawingVM.textBoxes[drawingVM.currentIndex].isAdded = true
+                            
                             // Closing the view
                             drawingVM.toolPicker.setVisible(true, forFirstResponder: drawingVM.canvas)
                             drawingVM.canvas.becomeFirstResponder()
@@ -113,12 +116,14 @@ struct HomeView: View {
                 .background(Color.gray)
                 .cornerRadius(15)
                 .padding()
-                
             }
         }
         // Showing ImagePicker in a sheet
         .sheet(isPresented: $drawingVM.showPicker) {
             ImagePicker(showPicker: $drawingVM.showPicker, imageData: $drawingVM.imageData)
+        }
+        .alert(isPresented: $drawingVM.showAlert) {
+            Alert(title: Text("Message!!"), message: Text(drawingVM.alertMsg), dismissButton: .destructive(Text("Ok")))
         }
     }
 }

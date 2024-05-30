@@ -19,4 +19,5 @@ struct TextBox: Identifiable {
     var textColor: Color = .white
     
     // Any property can be added........
+    var isAdded: Bool = false
 }
