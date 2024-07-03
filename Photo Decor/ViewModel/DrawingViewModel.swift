@@ -51,9 +51,9 @@ class DrawingViewModel: ObservableObject {
         
         // Removing if cancelled
         // Avoiding already added texts removal...
-        if !textBoxes[currentIndex].isAdded {
-            textBoxes.removeLast()
-        }
+//        if !textBoxes[currentIndex].isAdded {
+//            textBoxes.removeLast()
+//        }
     }
     
     func saveImage() {

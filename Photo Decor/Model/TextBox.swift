@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct TextBox: Identifiable {
+struct TextBox: Identifiable, Equatable {
     var id = UUID().uuidString
     var text: String = ""
     var isBold: Bool = false

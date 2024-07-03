@@ -11,6 +11,9 @@ import PencilKit
 struct DrawingView: View {
     // MARK: - Properties
     @EnvironmentObject var drawingVM: DrawingViewModel
+    @State private var menuPosition: CGSize = .zero
+    @State private var menuPopUp = false
+    @State private var selectedIndex: Int? = 0
     
     var body: some View {
         ZStack {
@@ -35,6 +38,9 @@ struct DrawingView: View {
                                 .font(.system(size: 28))
                                 .fontWeight(box.isBold ? .bold : .none)
                                 .foregroundColor(box.textColor)
+                                .padding(3)
+                                .cornerRadius(15)
+                                .border(selectedIndex == getIndex(textBox: box) ? .white : .clear, width: selectedIndex == getIndex(textBox: box) ? 2 : 0)
                                 .offset(box.offset)
                             // Drag gesture
                                 .gesture(
@@ -52,18 +58,85 @@ struct DrawingView: View {
                                             // Saving last value for exac position...
                                             drawingVM.textBoxes[getIndex(textBox: box)].lastOffset = value.translation
                                         }))
+                                .simultaneousGesture(
+                                    TapGesture()
+                                        .onEnded({ _ in
+                                            print("Tapping...")
+                                            withAnimation {
+                                                selectedIndex = getIndex(textBox: box)
+                                                
+                                                menuPosition = size.size
+                                                menuPopUp = true
+                                            }
+                                        })
+//                                    LongPressGesture(minimumDuration: 1.3)
+//                                        .onEnded({ _ in
+//                                            menuPosition = size.size
+//                                            menuPopUp = true
+//                                        })
+                                    
+//                                    onLongPressGesture(minimumDuration: 1.3, perform: {
+//                                        menuPosition = size.size
+//                                        menuPopUp = true
+//                                    })
+                                )
+                            
                             
                             // Editing added texts on long press...
-                                .onLongPressGesture(minimumDuration: 1.5) {
-                                    // Closing the toolBar...
-                                    drawingVM.toolPicker.setVisible(false, forFirstResponder: drawingVM.canvas)
-                                    drawingVM.canvas.resignFirstResponder()
-                                    
-                                    drawingVM.currentIndex = getIndex(textBox: box)
-                                    withAnimation {
-                                        drawingVM.addNewBox = true
+//                                .onLongPressGesture(minimumDuration: 1.5) {
+//                                    menuPosition = size.size
+//                                    menuPopUp = true
+//                                }
+                                .overlay (
+                                    HStack(spacing: 1) {
+                                        if menuPopUp && selectedIndex == getIndex(textBox: box) {
+                                            Button {
+                                                // Closing the PopUp
+                                                drawingVM.currentIndex = getIndex(textBox: box)
+                                                drawingVM.textBoxes.remove(at: drawingVM.currentIndex)
+                                                
+                                                withAnimation {
+                                                    menuPopUp = false
+                                                    selectedIndex = nil
+                                                }
+                                            } label: {
+                                                Image(systemName: "xmark")
+                                                    .padding(5)
+                                                    .foregroundColor(.white)
+                                                    .background(Color(uiColor: .systemGray6))
+                                                    .cornerRadius(geo.size.height / 2)
+                                            }
+                                            
+//                                            Button("Edit") {
+//                                                // Closing the toolBar...
+//                                                drawingVM.toolPicker.setVisible(false, forFirstResponder: drawingVM.canvas)
+//                                                drawingVM.canvas.resignFirstResponder()
+//
+//                                                drawingVM.currentIndex = getIndex(textBox: box)
+//                                                withAnimation {
+//                                                    drawingVM.addNewBox = true
+//                                                }
+//
+//                                                menuPopUp = false
+//                                            }
+//                                            .buttonStyle(.borderedProminent)
+//
+//                                            Button("Delete") {
+//                                                drawingVM.currentIndex = getIndex(textBox: box)
+//                                                drawingVM.textBoxes.remove(at: drawingVM.currentIndex)
+//
+//                                                menuPopUp = false
+//                                            }
+//                                            .buttonStyle(.borderedProminent)
+                                        } else {
+                                            EmptyView()
+                                        }
                                     }
-                                }
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .offset(box.offset)
+                                        .padding([.bottom, .leading], 80)
+                                    , alignment: .center
+                                )
                         }
                     }
                 )
@@ -96,7 +169,7 @@ struct DrawingView: View {
     }
     
     func getIndex(textBox: TextBox) -> Int {
-        let index = drawingVM.textBoxes.firstIndex { (box) in
+        let index = drawingVM.textBoxes.firstIndex { (box) -> Bool in
             return textBox.id == box.id
         } ?? 0
         
@@ -128,9 +201,9 @@ struct CanvasView: UIViewRepresentable {
         // Appending image in canvas subview...
         if let image = UIImage(data: imageData) {
             let imageView = UIImageView(image: image)
-            imageView.frame = CGRect(x: 0, y: 0, width: rect.width, height: rect.height)
+            imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: rect.height)
             imageView.contentMode = .scaleAspectFit
-            imageView.clipsToBounds = true
+//            imageView.clipsToBounds = true
             
             // Sending image back side
             let subView = canvas.subviews[0]
